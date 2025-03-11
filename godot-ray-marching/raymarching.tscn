@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://btoqijvr7w3v1"]
+
+[ext_resource type="Script" path="res://light.gd" id="1_2vl7u"]
+[ext_resource type="Shader" path="res://raymarching.gdshader" id="2_x4si8"]
+[ext_resource type="Script" path="res://csg_cylinder_3d.gd" id="3_xeovo"]
+[ext_resource type="Script" path="res://csg_sphere_3d.gd" id="4_gna00"]
+[ext_resource type="Script" path="res://csg_box_3d.gd" id="5_owbx3"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="6_igu32"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0gdm"]
+render_priority = 1
+shader = ExtResource("2_x4si8")
+shader_parameter/inverse_model_matrix = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcdsl"]
+render_priority = 0
+shader = ExtResource("2_x4si8")
+shader_parameter/inverse_model_matrix = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6rrc5"]
+render_priority = 0
+shader = ExtResource("2_x4si8")
+shader_parameter/inverse_model_matrix = null
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304234, 0.520361, 0.465719)
+visible = false
+shadow_enabled = true
+script = ExtResource("1_2vl7u")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+visible = false
+gi_mode = 2
+flip_faces = true
+radius = 0.847
+height = 1.05278
+smooth_faces = false
+material = SubResource("ShaderMaterial_v0gdm")
+script = ExtResource("3_xeovo")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+visible = false
+flip_faces = true
+radius = 1.0
+smooth_faces = false
+material = SubResource("ShaderMaterial_dcdsl")
+script = ExtResource("4_gna00")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+visible = false
+flip_faces = true
+size = Vector3(2, 2, 2)
+material = SubResource("ShaderMaterial_6rrc5")
+script = ExtResource("5_owbx3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.457725, -0.271784, 0.846535, -0.357357, 0.815599, 0.455076, -0.814116, -0.510815, 0.276196, 2.07697, 0.655577, 0.220944)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.659875, -1.32133, 0.0526333)
+visible = false
+size = Vector3(6.52563, 0.930664, 8.60962)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.988271, -0.15271, 0, 0.15271, 0.988271, 0.147672, 0.233991, 1.20609)
+script = ExtResource("6_igu32")
